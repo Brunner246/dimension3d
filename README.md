@@ -9,6 +9,9 @@ pip install cwapi3d
 ```
 
 # usage
+
+see dimension3d.py for usage example.
+
 ```python
 import os
 import sys
