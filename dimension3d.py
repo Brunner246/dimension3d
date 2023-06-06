@@ -34,3 +34,4 @@ if __name__ == '__main__':
     # dimension.set_orientation(new_plane.get_normal_vector(), new_plane.get_plane())
 
     dimension.set_unit_precision()
+    dimension.set_text_size(25.0)

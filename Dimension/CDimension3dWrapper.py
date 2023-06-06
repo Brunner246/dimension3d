@@ -37,23 +37,35 @@ class CDimension3dWrapper:
         return self.__dimension_element_id
 
     def set_dimension_element_id(self, aDimensionElementId: int):
-        if (ec.check_element_id(self.__dimension_element_id) == False):
-            raise ValueError("Invalid dimension element id")
+        if not self.__validate_element_id():
+            print(f"invalid element id: {aDimensionElementId}")
+            return
         self.__dimension_element_id = aDimensionElementId
 
     def set_orientation(self, aViewDirection: cadwork.point_3d, aViewUpDirection: cadwork.point_3d):
-        if (self.__dimension_element_id == 0):
-            raise ValueError("Dimension has to be created first")
+        if not self.__validate_element_id():
+            print(f"invalid element id: {self.__dimension_element_id}")
+            return
         print(f"set orientation for dimension {self.__dimension_element_id}")
         dc.set_orientation([self.__dimension_element_id], aViewDirection, aViewUpDirection)
 
     def add_segment(self, aDimensionSegment: cadwork.point_3d):
-        if (self.__dimension_element_id == 0):
-            raise ValueError("Dimension has to be created first")
-        print(f"add segment to dimension {self.__dimension_element_id}")
+        if not self.__validate_element_id():
+            print(f"invalid element id: {self.__dimension_element_id}")
+            return
         dc.add_segment(self.__dimension_element_id, aDimensionSegment)
 
+    def __validate_element_id(self) -> bool:
+        return ec.check_element_id(self.__dimension_element_id)
+
     def set_unit_precision(self, aPrecision: int = 1):
-        if (self.__dimension_element_id == 0):
-            raise ValueError("Dimension has to be created first")
+        if not self.__validate_element_id():
+            print(f"invalid element id: {self.__dimension_element_id}")
+            return
         dc.set_precision([self.__dimension_element_id], aPrecision)
+
+    def set_text_size(self, aTextSize: float):
+        if not self.__validate_element_id():
+            print(f"invalid element id: {self.__dimension_element_id}")
+            return
+        dc.set_text_size([self.__dimension_element_id], aTextSize)
