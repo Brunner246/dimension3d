@@ -29,9 +29,22 @@ if __name__ == '__main__':
     dimension.create_dimension()
 
     # change orientation of dimension text
-    # new_plane = CPlane3D(plane.get_normal_vector().invert(), cadwork.point_3d(0, 0, 1))
+
+    # new_plane = CPlane3D(plane.get_normal().invert(), cadwork.point_3d(0, 0, 1))
     # print(f"new plane: {new_plane.get_plane()}")
-    # dimension.set_orientation(new_plane.get_normal_vector(), new_plane.get_plane())
+    # dimension.set_orientation(new_plane.get_normal(), new_plane.get_plane())
 
     dimension.set_unit_precision()
+
     dimension.set_text_size(25.0)
+
+    dimension_mid_point = cadwork.point_3d(*(dimension_points[0] + dimension_points[1])) / 2
+    dimension.add_segment(dimension_mid_point)
+
+    dimension.set_line_thickness(0.5)
+
+    dimension.set_total_dimension()
+
+    dimension.set_text_color(22)
+
+    dimension.set_default_anchor_length(100.0)

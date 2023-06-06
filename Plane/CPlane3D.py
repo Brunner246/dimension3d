@@ -9,7 +9,7 @@ class CPlane3D:
         self.__normal: cadwork.point_3d = normal
         self.__point: cadwork.point_3d = point
 
-    def get_normal_vector(self):
+    def get_normal(self):
         return self.__normal
 
     def get_point_on_plane(self):
