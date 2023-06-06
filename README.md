@@ -35,4 +35,4 @@ dimension = CDimension3dWrapper(cadwork.point_3d(0, 0, 1), plane, cadwork.point_
 dimension.create_dimension()
 ```
 
-![dimension.png](..%2F..%2F..%2FOneDrive%20-%20Cadwork%2FBilder%2FScreenshots%2Fdimension.png)
+<img width="150" alt="dimension" src="https://github.com/Brunner246/dimension3d/assets/71121348/83758a7f-7bcf-4fb1-8c1a-e103483a2ca2">
