@@ -1,3 +1,5 @@
+# Written by: Michael Brunner
+
 import cadwork
 import math
 
@@ -14,10 +16,7 @@ class CPlane3D:
         return self.__point
 
     def get_plane(self):
-        return self.__normal, self.__point
-
-    def get_plane_point3d(self):
-        return cadwork.point_3d(*self.__point)
+        return self.__point # self.__normal,
 
     def calculate_distance_from_plane(self, point):
         distance = abs(sum(self.__normal[i] * (point[i] - self.__point[i]) for i in range(3))) \
