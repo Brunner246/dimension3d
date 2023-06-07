@@ -15,8 +15,11 @@ class CPlane3D:
     def get_point_on_plane(self):
         return self.__point
 
+    def get_plane_origin(self):
+        return self.__point
+
     def get_plane(self):
-        return self.__point # self.__normal,
+        return self.__normal, self.__point
 
     def calculate_distance_from_plane(self, point):
         distance = abs(sum(self.__normal[i] * (point[i] - self.__point[i]) for i in range(3))) \

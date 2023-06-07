@@ -2,10 +2,10 @@
 
 import os
 import sys
-from time import sleep
 
-import utility_controller as uc
 import cadwork
+import element_controller as ec
+import utility_controller as uc
 
 PLUGIN_PATH = uc.get_plugin_path()
 
@@ -23,12 +23,13 @@ if __name__ == '__main__':
     print(f'run script {__name__}')
 
     plane = CPlane3D(cadwork.point_3d(0, 1, 0), cadwork.point_3d(0, 0, 0))
-    dimension_points = [cadwork.point_3d(0, 0, 0), cadwork.point_3d(0, 0, 1000)]
-    dimension = CDimension3dWrapper(cadwork.point_3d(0, 0, 1), plane, cadwork.point_3d(200, 0, 0),
+    dimension_points = [cadwork.point_3d(0, 0, 0), cadwork.point_3d(500, 0, 1000)]
+    dimension_direction = (dimension_points[1] - dimension_points[0]).normalized()
+    dimension = CDimension3dWrapper(dimension_direction, plane, cadwork.point_3d(200, 200, 0),
                                     dimension_points)
     dimension.create_dimension()
 
-    # change orientation of dimension text
+    #### change orientation of dimension text ####
 
     # new_plane = CPlane3D(plane.get_normal().invert(), cadwork.point_3d(0, 0, 1))
     # print(f"new plane: {new_plane.get_plane()}")
@@ -48,3 +49,11 @@ if __name__ == '__main__':
     dimension.set_text_color(22)
 
     dimension.set_default_anchor_length(100.0)
+
+    point = cadwork.point_3d(0, 0, 0)
+    reference_plane = CPlane3D(cadwork.point_3d(0, 0, 1), cadwork.point_3d(0, 0, 1000))
+    projected_point = reference_plane.project_point(point)
+    ec.create_node(cadwork.point_3d(*projected_point))
+
+    distance = reference_plane.calculate_distance_from_plane(point)
+    print(f"distance: {distance}")
