@@ -19,21 +19,21 @@ PLUGIN_SOURCES = [PLUGIN_PATH]
 from Plane.CPlane3D import CPlane3D
 from Dimension.CDimension3dWrapper import CDimension3dWrapper
 
+
+def compute_dimension_direction_from_two_points(start_point, end_point):
+    return (end_point - start_point).normalized()
+
+
 if __name__ == '__main__':
     print(f'run script {__name__}')
 
-    plane = CPlane3D(cadwork.point_3d(0, 1, 0), cadwork.point_3d(0, 0, 0))
+    plane = CPlane3D(cadwork.point_3d(0, 1, 0), cadwork.point_3d(500, 200, 0))
+
     dimension_points = [cadwork.point_3d(0, 0, 0), cadwork.point_3d(500, 0, 1000)]
-    dimension_direction = (dimension_points[1] - dimension_points[0]).normalized()
-    dimension = CDimension3dWrapper(dimension_direction, plane, cadwork.point_3d(200, 200, 0),
-                                    dimension_points)
-    dimension.create_dimension()
 
-    #### change orientation of dimension text ####
+    dimension_direction = compute_dimension_direction_from_two_points(dimension_points[0], dimension_points[1])
 
-    # new_plane = CPlane3D(plane.get_normal().invert(), cadwork.point_3d(0, 0, 1))
-    # print(f"new plane: {new_plane.get_plane()}")
-    # dimension.set_orientation(new_plane.get_normal(), new_plane.get_plane())
+    dimension = CDimension3dWrapper(dimension_direction, plane, cadwork.point_3d(0, 500, 0), dimension_points)
 
     dimension.set_unit_precision()
 
@@ -57,3 +57,9 @@ if __name__ == '__main__':
 
     distance = reference_plane.calculate_distance_from_plane(point)
     print(f"distance: {distance}")
+
+    #### change orientation of dimension text ####
+
+    # new_plane = CPlane3D(plane.get_normal().invert(), cadwork.point_3d(0, 0, 1))
+    # print(f"new plane: {new_plane.get_plane()}")
+    # dimension.set_orientation(new_plane.get_normal(), new_plane.get_plane())
