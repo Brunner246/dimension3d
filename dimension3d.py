@@ -33,7 +33,7 @@ if __name__ == '__main__':
 
     dimension_direction = compute_dimension_direction_from_two_points(dimension_points[0], dimension_points[1])
 
-    dimension = CDimension3dWrapper(dimension_direction, plane, cadwork.point_3d(0, 500, 0), dimension_points)
+    dimension = CDimension3dWrapper(dimension_direction, plane, dimension_points)
 
     dimension.set_unit_precision()
 
