@@ -18,18 +18,18 @@ class CDimension3dWrapper:
 
         self.__direction: cadwork.point_3d = aDirection
         self.__plane: CPlane3D = aPlaneData
-        self.__distance: cadwork.point_3d = aDistance
         self.__dimension_points: List[cadwork.point_3d] = aDimensionPoints
         self.__dimension_element_id: int = 0
 
         if (len(self.__dimension_points) < 2):
             raise ValueError("Dimension needs at least two points")
 
-    def create_dimension(self):
+        self.__create_dimension()
+
+    def __create_dimension(self):
         self.__dimension_element_id = dc.create_dimension(self.__direction,
                                                           self.__plane.get_normal(),
-                                                          self.__plane.get_plane(),
-                                                          self.__distance,
+                                                          self.__plane.get_plane_origin(),
                                                           self.__dimension_points)
 
     def get_dimension_element_id(self):
@@ -43,7 +43,7 @@ class CDimension3dWrapper:
         return self.__plane.get_normal()
 
     def get_dimension_plane(self) -> cadwork.point_3d:
-        return self.__plane.get_plane()
+        return self.__plane.get_plane_origin()
 
     def set_orientation(self, aViewDirection: cadwork.point_3d, aViewUpDirection: cadwork.point_3d):
         self.__validate_element_id()

@@ -2,10 +2,10 @@
 
 import os
 import sys
-from time import sleep
 
-import utility_controller as uc
 import cadwork
+import element_controller as ec
+import utility_controller as uc
 
 PLUGIN_PATH = uc.get_plugin_path()
 
@@ -19,20 +19,21 @@ PLUGIN_SOURCES = [PLUGIN_PATH]
 from Plane.CPlane3D import CPlane3D
 from Dimension.CDimension3dWrapper import CDimension3dWrapper
 
+
+def compute_dimension_direction_from_two_points(start_point, end_point):
+    return (end_point - start_point).normalized()
+
+
 if __name__ == '__main__':
     print(f'run script {__name__}')
 
-    plane = CPlane3D(cadwork.point_3d(0, 1, 0), cadwork.point_3d(0, 0, 0))
-    dimension_points = [cadwork.point_3d(0, 0, 0), cadwork.point_3d(0, 0, 1000)]
-    dimension = CDimension3dWrapper(cadwork.point_3d(0, 0, 1), plane, cadwork.point_3d(200, 0, 0),
-                                    dimension_points)
-    dimension.create_dimension()
+    plane = CPlane3D(cadwork.point_3d(0, 1, 0), cadwork.point_3d(500, 200, 0))
 
-    # change orientation of dimension text
+    dimension_points = [cadwork.point_3d(0, 0, 0), cadwork.point_3d(500, 0, 1000)]
 
-    # new_plane = CPlane3D(plane.get_normal().invert(), cadwork.point_3d(0, 0, 1))
-    # print(f"new plane: {new_plane.get_plane()}")
-    # dimension.set_orientation(new_plane.get_normal(), new_plane.get_plane())
+    dimension_direction = compute_dimension_direction_from_two_points(dimension_points[0], dimension_points[1])
+
+    dimension = CDimension3dWrapper(dimension_direction, plane, cadwork.point_3d(0, 500, 0), dimension_points)
 
     dimension.set_unit_precision()
 
@@ -48,3 +49,17 @@ if __name__ == '__main__':
     dimension.set_text_color(22)
 
     dimension.set_default_anchor_length(100.0)
+
+    point = cadwork.point_3d(0, 0, 0)
+    reference_plane = CPlane3D(cadwork.point_3d(0, 0, 1), cadwork.point_3d(0, 0, 1000))
+    projected_point = reference_plane.project_point(point)
+    ec.create_node(cadwork.point_3d(*projected_point))
+
+    distance = reference_plane.calculate_distance_from_plane(point)
+    print(f"distance: {distance}")
+
+    #### change orientation of dimension text ####
+
+    # new_plane = CPlane3D(plane.get_normal().invert(), cadwork.point_3d(0, 0, 1))
+    # print(f"new plane: {new_plane.get_plane()}")
+    # dimension.set_orientation(new_plane.get_normal(), new_plane.get_plane())
