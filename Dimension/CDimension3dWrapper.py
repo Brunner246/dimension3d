@@ -13,7 +13,6 @@ class CDimension3dWrapper:
     """Wrapper class for cadwork dimension element"""
 
     def __init__(self, aDirection: cadwork.point_3d, aPlaneData: CPlane3D,
-                 aDistance: cadwork.point_3d,
                  aDimensionPoints: List[cadwork.point_3d]):
 
         self.__direction: cadwork.point_3d = aDirection

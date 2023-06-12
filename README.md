@@ -31,11 +31,12 @@ PLUGIN_SOURCES = [PLUGIN_PATH]
 from Plane.CPlane3D import CPlane3D
 from Dimension.CDimension3dWrapper import CDimension3dWrapper
 
-plane = CPlane3D(cadwork.point_3d(0, 1, 0), cadwork.point_3d(0, 0, 0))
+plane = CPlane3D(cadwork.point_3d(0, 1, 0), cadwork.point_3d(0, 500, 0))
 dimension_points = [cadwork.point_3d(0, 0, 0), cadwork.point_3d(0, 0, 1000)]
-dimension = CDimension3dWrapper(cadwork.point_3d(0, 0, 1), plane, cadwork.point_3d(200, 0, 0),
-                                dimension_points)
-dimension.create_dimension()
+
+# this will create a dimension with the dimension points on the plane
+dimension = CDimension3dWrapper(cadwork.point_3d(0, 0, 1), plane, dimension_points)
+
 ```
 
 <img width="150" alt="dimension" src="https://github.com/Brunner246/dimension3d/assets/71121348/83758a7f-7bcf-4fb1-8c1a-e103483a2ca2">
