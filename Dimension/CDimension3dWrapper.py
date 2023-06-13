@@ -3,8 +3,8 @@
 from typing import List
 
 import cadwork
-import element_controller as ec
 import dimension_controller as dc
+import element_controller as ec
 
 from Plane.CPlane3D import CPlane3D
 
@@ -12,8 +12,7 @@ from Plane.CPlane3D import CPlane3D
 class CDimension3dWrapper:
     """Wrapper class for cadwork dimension element"""
 
-    def __init__(self, aDirection: cadwork.point_3d, aPlaneData: CPlane3D,
-                 aDimensionPoints: List[cadwork.point_3d]):
+    def __init__(self, aDirection: cadwork.point_3d, aPlaneData: CPlane3D, aDimensionPoints: List[cadwork.point_3d]):
 
         self.__direction: cadwork.point_3d = aDirection
         self.__plane: CPlane3D = aPlaneData
